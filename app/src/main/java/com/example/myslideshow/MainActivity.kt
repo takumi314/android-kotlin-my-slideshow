@@ -2,10 +2,13 @@ package com.example.myslideshow
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.concurrent.timer
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,6 +39,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         // ViewPagerとViewAdapterを関連付ける
         pager.adapter = MainPagerAdapter(supportFragmentManager)
+        // 定期処理を行う (5000ms)
+        val handler = Handler()
+        timer(period = 5000) {
+            handler.post {
+                pager.currentItem = ( pager.currentItem + 1 ) % 10
+            }
+        }
     }
 
 }
