@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // 音楽を再生する
-        player = MediaPlayer(this, R.raw.getdown)
+        player = MediaPlayer.create(this, R.raw.getdown)
         // 繰り返し再生を有効にする
         player.isLooping = true
     }
