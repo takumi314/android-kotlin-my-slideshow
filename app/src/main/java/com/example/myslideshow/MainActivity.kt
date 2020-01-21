@@ -32,6 +32,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    // 画像を切り替える周期 (ms)
+    private val INTERVAL_TIME: Long = 5000
+
     // Life cycle
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,9 +42,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         // ViewPagerとViewAdapterを関連付ける
         pager.adapter = MainPagerAdapter(supportFragmentManager)
-        // 定期処理を行う (5000ms)
+        // 定期処理を行う
         val handler = Handler()
-        timer(period = 5000) {
+        timer(period = INTERVAL_TIME) {
             handler.post {
                 pager.currentItem = ( pager.currentItem + 1 ) % 10
             }
