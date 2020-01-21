@@ -1,5 +1,6 @@
 package com.example.myslideshow
 
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -11,6 +12,8 @@ import kotlin.concurrent.timer
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var player: MediaPlayer
 
     class MainPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
@@ -49,6 +52,25 @@ class MainActivity : AppCompatActivity() {
                 pager.currentItem = ( pager.currentItem + 1 ) % 10
             }
         }
+
+        // 音楽を再生する
+        player = MediaPlayer(this, R.raw.getdown)
+        // 繰り返し再生を有効にする
+        player.isLooping = true
+    }
+
+    // アクティビティが表示される時にコールされる
+    override fun onResume() {
+        super.onResume()
+        // 音楽を再生する
+        player.start()
+    }
+
+    // アプリを中断する時にコールされる（ホーム押下 or 他アプリ起動など）
+    override fun onPause() {
+        super.onPause()
+        // 音楽を停止する
+        player.pause()
     }
 
 }
